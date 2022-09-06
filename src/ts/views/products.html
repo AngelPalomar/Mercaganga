@@ -1,0 +1,107 @@
+<!--
+ Copyright (c) 2014, 2022, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-hybrid-padding">
+  <h1>Products Content Area</h1>
+  <div>
+    <!--Start crear producto dialog-->
+    <oj-dialog id="crear-producto-dialog" dialog-title="Añadir un producto" aria-describedby="desc">
+      <div slot="body">
+        <p id="desc">
+          Ingrese los datos para guardar en el inventario de productos.
+        </p>
+        <div>
+          <oj-input-text value="{{nombreProducto}}" label-hint="Nombre del producto" class="oj-sm-margin-4x-bottom">
+          </oj-input-text>
+          <oj-input-number step="1" value="{{precioProducto}}" min="0" label-hint="Precio del producto">
+          </oj-input-number>
+        </div>
+      </div>
+      <div slot="footer">
+        <oj-button id="saveButton" on-oj-action="[[guardarProducto]]">Guardar producto</oj-button>
+        <oj-button id="cancelButton" on-oj-action="[[closeCrearProducto]]">Cancelar</oj-button>
+      </div>
+    </oj-dialog>
+    <!--End crear producto dialog-->
+
+    <!--Start editar producto dialog-->
+    <oj-dialog id="editar-producto-dialog" dialog-title="Editar producto" aria-describedby="desc">
+      <div slot="body">
+        <p id="desc">
+          Ingrese los datos para guardar en el inventario de productos.
+        </p>
+        <div>
+          <oj-input-text value="{{idProductoEditar}}" label-hint="ID" class="oj-sm-margin-4x-bottom" readonly="true">
+          </oj-input-text>
+          <oj-input-text value="{{nombreProductoEditar}}" label-hint="Nombre del producto"
+            class="oj-sm-margin-4x-bottom">
+          </oj-input-text>
+          <oj-input-text value="{{precioProductoEditar}}" label-hint="Precio del producto">
+          </oj-input-text>
+        </div>
+      </div>
+      <div slot="footer">
+        <oj-button id="saveButton" on-oj-action="[[editarProducto]]">Guardar cambios</oj-button>
+        <oj-button id="cancelButton" on-oj-action="[[closeEditarProducto]]">Cancelar</oj-button>
+      </div>
+    </oj-dialog>
+    <!--End editar producto dialog-->
+
+    <!--Start eliminar producto dialog-->
+    <oj-dialog id="eliminar-producto-dialog" dialog-title="Eliminar producto" aria-describedby="desc">
+      <div slot="body">
+        <p id="desc">
+          ¿Está seguro de eliminar este elemento?
+        </p>
+        <oj-input-text value="{{nombreProductoEditar}}" label-hint="Nombre del producto" class="oj-sm-margin-4x-bottom"
+          readonly="true">
+        </oj-input-text>
+      </div>
+      <div slot="footer">
+        <oj-button id="saveButton" on-oj-action="[[eliminarProducto]]">Eliminar</oj-button>
+        <oj-button id="cancelButton" on-oj-action="[[closeEliminarProducto]]">Cancelar</oj-button>
+      </div>
+    </oj-dialog>
+    <!--End eliminar producto dialog-->
+
+    <oj-button id="buttonOpener" on-oj-action="[[openCrearProducto]]">Añadir producto</oj-button>
+    <!--start table-->
+    <oj-table id="table" aria-label="Tabla de productos" accessibility.row-header="nombre"
+      data="[[productosDataProvider]]" selection-mode='{"row": "single"}' dnd='{"reorder": {"columns": "enabled"}}'
+      scroll-policy="loadMoreOnScroll" scroll-policy-options='{"fetchSize": 10}'
+      on-selected-changed="[[selectedChangedListener]]" columns='[{"headerText": "ID", 
+                       "field": "id",
+                       "headerClassName": "oj-sm-only-hide",
+                       "className": "oj-sm-only-hide",
+                       "resizable": "enabled",
+                       "id": "depId"},
+                      {"headerText": "Nombre", 
+                       "field": "nombre",
+                       "resizable": "enabled",
+                       "id": "depName"},
+                      {"headerText": "Precio", 
+                       "field": "precio",
+                       "headerClassName": "oj-sm-only-hide",
+                       "className": "oj-sm-only-hide",
+                       "resizable": "enabled",
+                       "id": "locId"},
+                      {"headerText": "Actions",
+                       "headerClassName": "oj-sm-only-hide",
+                       "className": "oj-sm-only-hide",
+                       "resizable": "enabled",
+                       "template": "cellTemplate",
+                       "id": "locId"}]' class="demo-table-container">
+      <template slot="cellTemplate" data-oj-as="cell">
+        <oj-button id="editarBtn" on-oj-action="[[openEditarProducto]]">
+          Editar
+        </oj-button>
+        <oj-button id="editarBtn" on-oj-action="[[openEliminarProducto]]">
+          Eliminar
+        </oj-button>
+      </template>
+    </oj-table>
+    <!--end table-->
+  </div>
+</div>
