@@ -6,6 +6,28 @@
 <div class="oj-hybrid-padding">
   <h1>Dashboard Content Area</h1>
   <div>
-      To change the content of this section, you will make edits to the dashboard.html file located in the /ts/views folder.
+    <div class="oj-flex">
+      <div class="oj-flex-item">
+        <oj-chart id="barChart" type="{{graficaTipo}}" orientation="[[isVertical() ? 'vertical' : 'horizontal']]"
+          stack="[[stackValue]]" data="[[datosProvider]]" animation-on-display="auto" animation-on-data-change="auto"
+          hover-behavior="dim">
+          <template slot="itemTemplate" data-oj-as="item">
+            <oj-chart-item value="[[item.data.value]]" group-id="[[ [item.data.group] ]]"
+              series-id="[[item.data.series]]">
+            </oj-chart-item>
+          </template>
+        </oj-chart>
+      </div>
+      <div class="oj-flex-item">
+        <div class="oj-flex oj-sm-flex-direction-column">
+          <oj-switch id="orientationSw" value="{{isVertical}}" label-hint="Horizontal / Vertical"></oj-switch>
+          <oj-combobox-one id="combobox1" value="{{graficaTipo}}" label-hint="Orientación"
+            class="oj-form-control-max-width-md">
+            <oj-option value="bar">Bar</oj-option>
+            <oj-option value="pie">Pie</oj-option>
+          </oj-combobox-one>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
